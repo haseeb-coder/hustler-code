@@ -5,7 +5,7 @@ import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
 
-import { Footer, Navbar } from "../components";
+import { Footer, Navbar, ProductCard } from "../components";
 
 const Product = () => {
   const { id } = useParams();
@@ -130,36 +130,18 @@ const Product = () => {
           <div className="d-flex">
             {similarProducts.map((item) => {
               return (
-                <div key={item.id} className="card mx-4 text-center">
-                  <img
-                    className="card-img-top p-3"
-                    src={item.image}
-                    alt="Card"
-                    height={300}
-                    width={300}
+                <div key={item.id} className="mx-4" style={{ minWidth: 250 }}>
+                  <ProductCard
+                    id={item.id}
+                    imageUrl={item.image}
+                    name={item.title}
+                    price={item.price}
+                    currency="USD"
+                    inStock={true}
+                    variants={["Standard"]}
+                    detailHref={"/product/" + item.id}
+                    onAddToCart={() => addProduct(item)}
                   />
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      {item.title.substring(0, 15)}...
-                    </h5>
-                  </div>
-                  {/* <ul className="list-group list-group-flush">
-                    <li className="list-group-item lead">${product.price}</li>
-                  </ul> */}
-                  <div className="card-body">
-                    <Link
-                      to={"/product/" + item.id}
-                      className="btn btn-dark m-1"
-                    >
-                      Buy Now
-                    </Link>
-                    <button
-                      className="btn btn-dark m-1"
-                      onClick={() => addProduct(item)}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
                 </div>
               );
             })}
