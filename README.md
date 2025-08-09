@@ -233,3 +233,34 @@ components:
               - type: string
               - type: number
 ```
+
+
+---
+
+## Catalog AI (Frontend Demo)
+
+This small catalog viewer showcases 8–12 sample products and a simple natural-language search feature.
+
+- Route: http://localhost:3000/catalog-ai
+- Data: static JSON in `src/data/sampleProducts.js`
+- Basic filters: category dropdown + max price input
+- AI feature: NLP-like parsing (no external API) for phrases like: "running shoes under $100 with good reviews"
+
+How to run:
+1. Install deps and start dev server
+   ```bash
+   npm install
+   npm start
+   ```
+2. Open http://localhost:3000/catalog-ai
+
+Which AI feature: Smart Product Search (NLP-lite)
+
+Tools/libraries:
+- React + Bootstrap (already in project)
+- No external AI libraries (simple parser)
+
+Assumptions:
+- Demo-only parsing (heuristic). Replace with OpenAI API or a proper NLP model for production.
+- Catalog is static on the client; backend integration is optional.
+- Pricing, rating, and categories are examples for filtering.
