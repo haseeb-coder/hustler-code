@@ -50,12 +50,12 @@ const CatalogAI = () => {
   const [priceMax, setPriceMax] = useState("");
 
   const parsed = useMemo(() => parseQuery(input), [input]);
-  const aiResults = useMemo(() => filterProducts(parsed), [parsed]);
-  const basicFiltered = useMemo(() => sampleProducts.filter((p) => {
-    const cOk = !category || p.category === category;
-    const pOk = !priceMax || p.price <= Number(priceMax);
-    return cOk && pOk;
-  }), [category, priceMax]);
+  const results = useMemo(() => {
+    const effCategory = category || parsed.category;
+    const effMaxPrice = priceMax ? Number(priceMax) : parsed.maxPrice;
+    const q = { ...parsed, category: effCategory, maxPrice: effMaxPrice };
+    return filterProducts(q);
+  }, [parsed, category, priceMax]);
 
   return (
     <div className="container my-4">
@@ -102,9 +102,12 @@ const CatalogAI = () => {
 
       <div className="row">
         <div className="col-12">
-          <h5>AI Results</h5>
+          <div className="d-flex align-items-center justify-content-between">
+            <h5 className="mb-2">Results</h5>
+            <span className="text-muted small">{results.length} items</span>
+          </div>
           <div className="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
-            {aiResults.map((p) => (
+            {results.map((p) => (
               <div key={p.id} className="col">
                 <ProductCard
                   id={p.id}
@@ -126,9 +129,12 @@ const CatalogAI = () => {
 
       <div className="row">
         <div className="col-12">
-          <h5>Basic Catalog (filters above)</h5>
+          <div className="d-flex align-items-center justify-content-between">
+            <h5 className="mb-2">Catalog (All Products)</h5>
+            <span className="text-muted small">{sampleProducts.length} items</span>
+          </div>
           <div className="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
-            {basicFiltered.map((p) => (
+            {sampleProducts.map((p) => (
               <div key={p.id} className="col">
                 <ProductCard
                   id={p.id}

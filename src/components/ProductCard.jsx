@@ -88,6 +88,8 @@ const ProductCard = ({
           alt={name}
           className="card-img-top"
           loading="lazy"
+          referrerPolicy="no-referrer"
+          crossOrigin="anonymous"
           onError={(e) => {
             if (e.currentTarget.src !== FALLBACK_IMG) {
               e.currentTarget.src = FALLBACK_IMG;
