@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import ProductCard from "./ProductCard";
 
@@ -143,6 +143,14 @@ const Products = () => {
             <h2 className="display-5 text-center">Latest Products</h2>
             <hr />
           </div>
+        <div className="row">
+          <div className="col-12 text-center">
+            <Link to="/catalog-ai" className="btn btn-outline-dark mt-3">
+              Try Catalog AI Search
+            </Link>
+          </div>
+        </div>
+
         </div>
         <div className="row justify-content-center">
           {loading ? <Loading /> : <ShowProducts />}

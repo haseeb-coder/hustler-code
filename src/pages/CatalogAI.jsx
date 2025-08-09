@@ -59,16 +59,22 @@ const CatalogAI = () => {
 
   return (
     <div className="container my-4">
-      <h2 className="mb-3">Catalog AI — Smart Search (Demo)</h2>
+      <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+        <h2 className="m-0">Catalog AI</h2>
+        <a href="/" className="btn btn-outline-secondary btn-sm">Back to Home</a>
+      </div>
       <div className="row g-3 align-items-end">
         <div className="col-md-6">
-          <label className="form-label">Natural language search</label>
-          <input
-            className="form-control"
-            placeholder="e.g. running shoes under $100 with good reviews"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
+          <label className="form-label fw-semibold">Natural language search</label>
+          <div className="input-group">
+            <span className="input-group-text bg-white"><i className="fa fa-search" /></span>
+            <input
+              className="form-control"
+              placeholder="e.g. running shoes under $100 with good reviews"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+          </div>
           <div className="form-text">Understands simple phrases: price ceilings, categories, and "good reviews".</div>
         </div>
         <div className="col-md-3">
@@ -83,6 +89,10 @@ const CatalogAI = () => {
           </select>
         </div>
         <div className="col-md-3">
+      <div className="alert alert-info py-2 small" role="alert">
+        Try: <em>running shoes under $100 with good reviews</em> or <em>Apparel under $50</em>
+      </div>
+
           <label className="form-label">Max Price</label>
           <input className="form-control" type="number" value={priceMax} onChange={(e) => setPriceMax(e.target.value)} placeholder="e.g. 100" />
         </div>
@@ -93,12 +103,12 @@ const CatalogAI = () => {
       <div className="row">
         <div className="col-12">
           <h5>AI Results</h5>
-          <div className="row">
+          <div className="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
             {aiResults.map((p) => (
-              <div key={p.id} className="col-md-3 col-sm-6 mb-3">
+              <div key={p.id} className="col">
                 <ProductCard
                   id={p.id}
-                  imageUrl={p.imageUrl}
+                  imageUrl={p.imageUrl || "/assets/product-placeholder.svg"}
                   name={p.name}
                   price={p.price}
                   currency="USD"
@@ -117,12 +127,12 @@ const CatalogAI = () => {
       <div className="row">
         <div className="col-12">
           <h5>Basic Catalog (filters above)</h5>
-          <div className="row">
+          <div className="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
             {basicFiltered.map((p) => (
-              <div key={p.id} className="col-md-3 col-sm-6 mb-3">
+              <div key={p.id} className="col">
                 <ProductCard
                   id={p.id}
-                  imageUrl={p.imageUrl}
+                  imageUrl={p.imageUrl || "/assets/product-placeholder.svg"}
                   name={p.name}
                   price={p.price}
                   currency="USD"

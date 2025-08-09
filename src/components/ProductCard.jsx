@@ -2,6 +2,16 @@ import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import "./ProductCard.css";
 
+// Inline SVG placeholder (light gray) for broken images
+const FALLBACK_IMG =
+  "data:image/svg+xml;charset=UTF-8," +
+  encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
+      <rect width='100%' height='100%' fill='#f1f3f5'/>
+      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#adb5bd' font-family='Arial, sans-serif' font-size='20'>Image unavailable</text>
+    </svg>`
+  );
+
 function formatCurrency(value, currency) {
   try {
     return new Intl.NumberFormat(undefined, {
@@ -74,10 +84,15 @@ const ProductCard = ({
       <div className="ratio ratio-4x3 product-card-img-wrap">
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
         <img
-          src={imageUrl}
+          src={imageUrl || FALLBACK_IMG}
           alt={name}
           className="card-img-top"
           loading="lazy"
+          onError={(e) => {
+            if (e.currentTarget.src !== FALLBACK_IMG) {
+              e.currentTarget.src = FALLBACK_IMG;
+            }
+          }}
         />
         {isOutOfStock && (
           <span className="badge bg-secondary product-card-badge" aria-label="Out of Stock">
